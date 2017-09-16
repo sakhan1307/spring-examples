@@ -1,0 +1,127 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.springexample"/>
+	
+	<!--<bean id="hello" class="com.springexample.hello.HelloWorld" >
+		<property name="greeting" value="Welcome To spring!" />
+	</bean>
+	
+	 <bean id="sequence" class="com.springexample.sequence.SequenceGenerator">
+		<constructor-arg>
+			<value>SP_</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>_TR</value>
+		</constructor-arg>
+		<constructor-arg>
+			<value>10000</value>
+		</constructor-arg>
+	</bean> -->
+	
+	
+	<!-- <bean id="sequence" class="com.springexample.sequence.SequenceGenerator">
+		<constructor-arg type="java.lang.String" index="0" value="SP"/>
+		<constructor-arg type="int" index="1" value="10000"/>
+	</bean>-->
+	
+	<bean id="datePrefixGenerator"	class="com.springexample.sequence.DatePrefixGenerator">
+		<property name="pattern" value="yyyyMMdd" />
+	</bean>
+	
+	<bean id="sequence" class="com.springexample.sequence.SequenceGenerator">
+		<property name="prefixGenerator">
+			<ref bean="datePrefixGenerator" />
+			<!-- <ref local="datePrefixGenerator" /> -->
+		</property>
+		<property name="suffix" value="_TR"/>
+		<property name="initial" value="10000"/>
+	</bean><!--
+	
+	
+	<bean id="employee" class="com.springexample.sequence.Employee" autowire="byType">
+		<property name="firstName" value="Amit"/>
+		<property name="lastName" value="Gupta"/>
+	</bean>
+	
+	<bean id="employee" class="com.springexample.sequence.Employee" autowire="byName" dependency-check="objects">
+		<property name="firstName" value="Amit"/>
+		<property name="lastName" value="Gupta"/>
+	</bean>-->
+	
+	<bean id="employee" class="com.springexample.sequence.Employee">
+		<property name="firstName" value="Amit"/>
+		<property name="lastName" value="Gupta"/>
+	</bean>
+	
+	<bean id="addrr1" class="com.springexample.sequence.Address">
+		<property name="addr1" value="Wakad"/>
+		<property name="addr2" value="Basti"/>
+		<property name="city" value="pune"/>
+	</bean>
+	
+	<bean id="addrr" class="com.springexample.sequence.Address">
+		<property name="addr1" value="Wakad"/>
+		<property name="addr2" value="Basti"/>
+		<property name="city" value="pune"/>
+	</bean>
+	
+	<bean id="util" class="com.springexample.util.UtilClass">
+		<property name="objects"><!--
+			<list>
+				<value>A</value>
+				<bean class="java.net.URL">
+				<constructor-arg value="http" />
+				<constructor-arg value="www.apress.com" />
+				<constructor-arg value="/" />
+				</bean>
+				<null />
+			</list>
+		
+			<set>
+				<value>A</value>
+				<bean class="java.net.URL">
+				<constructor-arg value="http" />
+				<constructor-arg value="www.apress.com" />
+				<constructor-arg value="/" />
+				</bean>
+				<null />
+			</set>-->
+			
+			<map>
+				<entry>
+					<key>
+						<value>type</value>
+					</key>
+					<value>A</value>
+				</entry>
+				<entry>
+					<key>
+						<value>url</value>
+					</key>
+					<bean class="java.net.URL">
+						<constructor-arg value="http" />
+						<constructor-arg value="www.apress.com" />
+						<constructor-arg value="/" />
+					</bean>
+				</entry>
+			</map>
+
+		</property>
+	</bean>
+	
+	<bean id="scope" class="com.springexample.util.BeanScope" scope="prototype"/>
+	
+	<!--  <bean id="event" class="com.springexample.util.EventCallBack" init-method="open" destroy-method="close"/>-->
+	 <bean id="event" class="com.springexample.util.EventCallBack"/>
+	 
+	 <context:property-placeholder location="config.properties"/>
+	<bean id="hello" class="com.springexample.hello.HelloWorld">
+		<property name="greeting" value="${cashier.path}"/>
+	</bean>
+</beans>
