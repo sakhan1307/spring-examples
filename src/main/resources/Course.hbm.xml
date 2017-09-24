@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.springexample.jdbc.dao.hibenate">
+  <class name="Course" table="COURSE">
+    <id column="ID" name="id" type="long">
+        <generator class="increment"/>
+    </id>
+    <property name="title" type="string">
+      <column length="100" name="TITLE" not-null="true"/>
+    </property>
+    <property column="BEGIN_DATE" name="beginDate" type="date"/>
+    <property column="END_DATE" name="endDate" type="date"/>
+    <property column="FEE" name="fee" type="int"/>
+  </class>
+  </hibernate-mapping>
